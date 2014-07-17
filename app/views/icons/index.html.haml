@@ -1,0 +1,4 @@
+= form_for(@icon) do |f|
+  = f.file_field :image
+  = f.collection_select(:category_id, Category.all, :id, :name)
+  = f.submit :upload
