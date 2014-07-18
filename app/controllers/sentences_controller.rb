@@ -13,6 +13,10 @@ class SentencesController < ApplicationController
     render json: sentence.to_json
   end
 
+  def search
+    require 'pry'; binding.pry
+  end
+
 private
 
   def sentence_params

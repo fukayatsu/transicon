@@ -10,6 +10,10 @@ $ ->
       console.log "drop:#{iconId}"
       iconIds.push(iconId)
       console.log iconIds
+
+      return unless $('body').hasClass('pages-index')
+      $.get '/sentences/search', { icons:  iconIds.join(',') }, (data) ->
+        console.log data
     out: (event, ui) ->
       iconId = ui.draggable.data('icon-id')
       console.log "out:#{iconId}"

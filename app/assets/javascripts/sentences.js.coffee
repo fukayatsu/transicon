@@ -12,6 +12,7 @@ $(document).on 'click', '#create_sentence', ->
     beforeSend: ->
     complete: ->
     success: (result, textStatus, xhr) ->
-      alert('success')
+      alert 'success'
       location.href = ''
     error: (xhr, textStatus, error) ->
+      alert 'error'
