@@ -11,6 +11,6 @@ class IconsController < ApplicationController
 private
 
   def icon_params
-    params.require(:icon).permit(:image, :category_id)
+    params.require(:icon).permit(:image, :category_id, :word)
   end
 end

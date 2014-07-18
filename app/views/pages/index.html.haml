@@ -4,6 +4,7 @@
   - Icon.all.each do |icon|
     %span.ticon{ data: { icon_id: icon.id } }
       = image_tag(icon.image.thumb.url, size: '100x100')
+      = icon.word
 %br
 %br
 .ticon-input
