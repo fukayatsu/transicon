@@ -1,4 +1,4 @@
-iconIds = []
+window.iconIds = []
 
 $ ->
   $(".ticon" ).draggable({ addClasses: 'dragging'})
@@ -6,6 +6,7 @@ $ ->
     accept: ".ticon",
     drop: (event, ui) ->
       iconId = ui.draggable.data('icon-id')
+      return if iconId in iconIds
       console.log "drop:#{iconId}"
       iconIds.push(iconId)
       console.log iconIds
