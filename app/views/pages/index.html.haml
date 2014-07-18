@@ -1,4 +1,9 @@
 = link_to 'icon追加', icons_path
 %br
-- @icons.each do |icon|
-  = image_tag(icon.image.thumb.url, size: '100x100')
+.icons
+  - @icons.each do |icon|
+    %span.ticon{ data: { icon_id: icon.id } }
+      = image_tag(icon.image.thumb.url, size: '100x100')
+%br
+%br
+.ticon-input
