@@ -12,7 +12,7 @@ $ ->
       console.log iconIds
 
       return unless $('body').hasClass('pages-index')
-      $.get '/sentences/search', { icons:  iconIds.join(',') }, (data) ->
+      $.post '/sentences/search', { icons:  iconIds }, (data) ->
         console.log data
     out: (event, ui) ->
       iconId = ui.draggable.data('icon-id')

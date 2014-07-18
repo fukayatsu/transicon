@@ -14,7 +14,12 @@ class SentencesController < ApplicationController
   end
 
   def search
-    require 'pry'; binding.pry
+    sentences = Sentence.all.includes(:icon_sentences)
+    params[:icons].each do |icon_id|
+      sentences = sentences.where(icon_sentences: { icon_id: icon_id })
+    end
+
+    render json: sentences
   end
 
 private
