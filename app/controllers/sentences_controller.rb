@@ -4,8 +4,13 @@ class SentencesController < ApplicationController
 
   def create
     sentence = Sentence.create(sentence_params)
-    require 'pry'; binding.pry
-    return json: sentence.to_json
+    icon_ids = params[:icons].split(',')
+
+    icon_ids.each do |icon_id|
+      IconSentence.find_or_create_by(icon_id: icon_id, sentence_id: sentence.id)
+    end
+
+    render json: sentence.to_json
   end
 
 private
