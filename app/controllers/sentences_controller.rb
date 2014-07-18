@@ -3,7 +3,9 @@ class SentencesController < ApplicationController
   end
 
   def create
+    sentence = Sentence.create(sentence_params)
     require 'pry'; binding.pry
+    return json: sentence.to_json
   end
 
 private
