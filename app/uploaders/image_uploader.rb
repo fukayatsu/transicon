@@ -31,13 +31,15 @@ class ImageUploader < CarrierWave::Uploader::Base
   #   # do something
   # end
 
+  process :strip
+
   # Create different versions of your uploaded files:
   version :thumb do
-    process :resize_to_fit => [100, 100]
+    process resize_to_fill: [100, 100, 'Center']
   end
 
   version :thumb2x do
-    process :resize_to_fit => [200, 200]
+    process resize_to_fill: [200, 200, 'Center']
   end
 
   # Add a white list of extensions which are allowed to be uploaded.
@@ -52,4 +54,11 @@ class ImageUploader < CarrierWave::Uploader::Base
   #   "something.jpg" if original_filename
   # end
 
+  def strip
+    manipulate! do |img|
+      img.strip
+      img = yield(img) if block_given?
+      img
+    end
+  end
 end
