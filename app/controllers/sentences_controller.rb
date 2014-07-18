@@ -15,6 +15,8 @@ class SentencesController < ApplicationController
 
   def search
     sentences = Sentence.all.includes(:icon_sentences)
+    return render json: [] if params[:icons].blank?
+
     params[:icons].each do |icon_id|
       sentences = sentences.where(icon_sentences: { icon_id: icon_id })
     end
