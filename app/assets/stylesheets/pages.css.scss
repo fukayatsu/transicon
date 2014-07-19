@@ -928,15 +928,17 @@ p, blockquote, dl, dt, dd, ul, ol, li, form {
     // overflow: scroll;
   .sentences{
     @extend %card;
-    padding: 10px;
+    padding:  8px 10px;
     margin-bottom: 10px;
     @include border_radius($radius);
     position: relative;
     .btn-listen{
       @include border_radius(50%);
-      width: 30px;
-      height: 30px;
+      width: 32px;
+      height: 32px;
       background-color: #222;
+      background-image: image-url("icon_listen.png");
+      background-size: 100% 100%;
       position: absolute;
       top:10px;
       right: 10px;
