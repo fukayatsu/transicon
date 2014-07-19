@@ -15,5 +15,5 @@
 //= require jquery-ui
 //= require jquery.ui.touch-punch
 //= require bootstrap-sprockets
-//= require turbolinks
+//= require vue.min
 //= require_tree .
