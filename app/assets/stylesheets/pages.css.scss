@@ -2,13 +2,13 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.ticon-input {
-  height: 200px;
-  width: 500px;
-  background: #aaaaaa;
-  display: inline-block;
-  margin: 0px;
-}
+// .ticon-input {
+//   height: 200px;
+//   width: 500px;
+//   background: #aaaaaa;
+//   display: inline-block;
+//   margin: 0px;
+// }
 
 /* =============================================================
   共通変数設定
@@ -971,6 +971,7 @@ p, blockquote, dl, dt, dd, ul, ol, li, form {
   @extend %clearfix;
   background: #E2E2E2;
   padding: 10px 10px;
+  min-height: 70px;
   .icons{
     @include border_radius($radius);
     float:left;
