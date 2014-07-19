@@ -7,7 +7,8 @@
 
 
 
-.l-sentence
+
+#search-result.l-sentence
   .sentences.card
     .btn-listen
     %p.txt--en
@@ -24,7 +25,7 @@
 
 
 .l-menu
-  .l-selected
+  .l-selected.ticon-input
     .icons
       %a{:href => ""}
     .icons
@@ -52,9 +53,6 @@
 /     %span.ticon{ data: { icon_id: icon.id } }
 /       = image_tag(icon.image.thumb.url, size: '100x100')
 /       = icon.word
-/ %br
-/ %br
-/ .ticon-input
 
-/ #search-result
+
 
