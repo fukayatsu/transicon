@@ -1,6 +1,11 @@
 %br
 %br
 %br
+.icons
+  - Icon.all.each do |icon|
+    %span.ticon{ data: { icon_id: icon.id } }
+      = image_tag(icon.image.thumb.url, size: '100x100')
+
 = form_for(@icon) do |f|
   = f.file_field :image
   = f.collection_select(:category_id, Category.all, :id, :name)
