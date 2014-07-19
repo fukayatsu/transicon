@@ -4,6 +4,12 @@ resetSearchResult = (iconIds) ->
   $.post '/sentences/search', { icons:  iconIds }, (html) ->
     $('#search-result').html(html)
 
+$(document).on 'click', '.btn-listen', (e) ->
+  text = $(e.target).data('text')
+  $audio = $('<audio>')
+  $audio.attr('src', "https://translate.google.com/translate_tts?tl=en&q=#{text}")
+  $audio.attr('autoplay', 'autoplay')
+
 $ ->
   $(".ticon" ).draggable({ addClasses: 'dragging'})
   $('.ticon-input').droppable({
