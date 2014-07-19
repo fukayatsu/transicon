@@ -12,7 +12,9 @@
       .logo
         = link_to 'Pictalk', root_path
       %p.btn-add
-        = link_to '', icons_path
+        = link_to '', edit_path
+      = link_to root_path do
+        %p.btn-refresh
 
     = yield
 
