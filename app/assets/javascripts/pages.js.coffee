@@ -17,6 +17,7 @@ $ ->
       select: (e) ->
         vm = e.targetVM
         return if vm.$data.icon in vm.$root.selectedIcons
+        return if vm.$root.selectedIcons.length >= 4
         vm.$root.selectedIcons.push vm.$data.icon
         iconIds = (icon.id for icon in vm.$root.selectedIcons)
         resetSearchResult(iconIds)
