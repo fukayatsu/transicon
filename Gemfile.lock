@@ -1,3 +1,11 @@
+GIT
+  remote: git://github.com/fukayatsu/touchpunch-rails.git
+  revision: 5cdd899dacb508218542a62b1a8b36c4268e5896
+  branch: require-patch
+  specs:
+    touchpunch-rails (1.0.3)
+      railties (>= 3.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -250,6 +258,7 @@ DEPENDENCIES
   spring
   sqlite3
   tapp
+  touchpunch-rails!
   turbolinks
   uglifier (>= 1.3.0)
   unicorn
