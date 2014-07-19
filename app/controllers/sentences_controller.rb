@@ -17,11 +17,11 @@ class SentencesController < ApplicationController
     sentences = Sentence.all.includes(:icon_sentences)
     return render json: [] if params[:icons].blank?
 
-    params[:icons].each do |icon_id|
-      sentences = sentences.where(icon_sentences: { icon_id: icon_id })
+    sentence_ids_map = params[:icons].map do |icon_id|
+      sentences.where(icon_sentences: { icon_id: icon_id }).pluck(:sentence_id)
     end
 
-    render json: sentences
+    render json: Sentence.where(id: sentence_ids_map.inject(:&))
   end
 
 private
