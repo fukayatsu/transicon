@@ -25,6 +25,19 @@ class SentencesController < ApplicationController
     render layout: false
   end
 
+  def speak
+    @sentence   = Sentence.find(params[:id])
+    user_agent = request.user_agent
+    conn = Faraday.new(url: 'https://translate.google.com') do |faraday|
+      faraday.adapter  Faraday.default_adapter  # make requests with Net::HTTP
+    end
+    response = conn.get do |req|
+      req.url "/translate_tts?tl=en&q=#{CGI.escape(@sentence.body_en)}"
+      req.headers['User-Agent'] = user_agent
+    end
+    send_data(response.body, type: response.headers['content-type'], disposition: 'inline')
+  end
+
 private
 
   def sentence_params

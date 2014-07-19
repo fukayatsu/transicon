@@ -5,9 +5,9 @@ resetSearchResult = (iconIds) ->
     $('#search-result').html(html)
 
 $(document).on 'click', '.btn-listen', (e) ->
-  text = $(e.target).data('text')
+  id = $(e.target).data('id')
   $audio = $('<audio>')
-  $audio.attr('src', "https://translate.google.com/translate_tts?tl=en&q=#{text}")
+  $audio.attr('src', "/sentences/#{id}/speak")
   $audio.attr('autoplay', 'autoplay')
 
 $ ->
