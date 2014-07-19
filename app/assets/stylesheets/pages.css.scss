@@ -911,32 +911,54 @@ p, blockquote, dl, dt, dd, ul, ol, li, form {
   top: 0;
   left: 0;
   width: 100%;
+  z-index: 100;
   .logo{
     text-align: center;
     margin:0;
     padding:0;
     font-size: 24px;
-    line-height: 44px;
+    line-height: 46px;
     font-weight: bold;
     font-family: helvetica;
+    a{
+      color: #222;
+      &:hover{
+        text-decoration: none;
+      }
+    }
+  }
+  .btn-add{
+    position: absolute;
+    top:6px;
+    right: 10px;
+    a{
+      width: 32px;
+      height: 32px;
+      background-image: image-url("icon_add.png");
+      background-size: 100% 100%;
+      display: block;
+    }
   }
 }
 
 .l-sentence{
+  z-index: 10;
   padding: 60px 10px 200px 10px;
     // height: 260px;
     // overflow: scroll;
   .sentences{
     @extend %card;
-    padding: 10px;
+    padding:  8px 10px;
     margin-bottom: 10px;
     @include border_radius($radius);
     position: relative;
     .btn-listen{
       @include border_radius(50%);
-      width: 30px;
-      height: 30px;
+      width: 32px;
+      height: 32px;
       background-color: #222;
+      background-image: image-url("icon_listen.png");
+      background-size: 100% 100%;
       position: absolute;
       top:10px;
       right: 10px;
@@ -958,6 +980,7 @@ p, blockquote, dl, dt, dd, ul, ol, li, form {
 }
 
 .l-menu{
+  z-index: 100;
   position: fixed;
   bottom: 0;
   left: 0;
@@ -965,6 +988,11 @@ p, blockquote, dl, dt, dd, ul, ol, li, form {
   width: 100%;
   background-color: #fff;
   @extend %box-shadow;
+  $set: 1px 0px 1px 0px rgba(0,0,0,0.1);
+  -webkit-box-shadow: $set;
+  -moz-box-shadow: $set;
+  box-shadow: $set;
+
 }
 
 .l-selected{
