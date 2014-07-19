@@ -1,12 +1,12 @@
 %script#ticon-template{type: "text/x-template"}
-  .icons.ticon{ data: { icon_id: '{{icon.id}}' } }
+  %span{ data: { icon_id: '{{icon.id}}' } }
     %img{ v: { attr: 'src: icon.url' } }
 
 
 #search-result.l-sentence
 
 .l-menu#vue
-  .l-icons.l-selected.ticon-input
+  .l-selected
     .icons{ v: {component: "ticon", repeat: "icon: selectedIcons", on: "click: delete" } }
 
   .l-icons
