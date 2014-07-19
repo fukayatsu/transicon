@@ -21,7 +21,8 @@ class SentencesController < ApplicationController
       sentences.where(icon_sentences: { icon_id: icon_id }).pluck(:sentence_id)
     end
 
-    render json: Sentence.where(id: sentence_ids_map.inject(:&))
+    @sentences = Sentence.where(id: sentence_ids_map.inject(:&))
+    render layout: false
   end
 
 private
