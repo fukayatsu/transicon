@@ -5,3 +5,10 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+categoie_names = %w(people nature objects places symbols)
+
+categoie_names.each do |category_name|
+  next if Category.named(category_name).exists?
+  Category.create(name: category_name, position: (Category.maximum(:position) || -1) + 1)
+end
