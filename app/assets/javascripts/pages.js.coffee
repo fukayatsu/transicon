@@ -1,12 +1,7 @@
 window.iconIds = []
 
 resetSearchResult = (iconIds) ->
-  $.post '/sentences/search', { icons:  iconIds }, (sentences) ->
-    html = '<ul>'
-    for sentence in sentences
-      html += '<li>' + sentence.body_en + " / " + sentence.body_ja
-      html += '<audio src="https://translate.google.com/translate_tts?tl=en&q=' + sentence.body_en.split(' ').join('+') + '" controls></audio>'
-    html += '</ul>'
+  $.post '/sentences/search', { icons:  iconIds }, (html) ->
     $('#search-result').html(html)
 
 $ ->
