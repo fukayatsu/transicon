@@ -11,6 +11,7 @@ $(document).on 'click', '.btn-listen', (e) ->
   $audio.attr('autoplay', 'autoplay')
 
 $ ->
+  return unless $('body').hasClass('pages-index')
   Vue.component 'ticon',
     template: '#ticon-template'
     methods:
