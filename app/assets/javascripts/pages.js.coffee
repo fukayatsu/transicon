@@ -5,9 +5,9 @@ resetSearchResult = (iconIds) ->
     $('#search-result').html(html)
 
 $(document).on 'click', '.btn-listen', (e) ->
-  text = $(e.target).data('text')
+  id = $(e.target).data('id')
   $audio = $('<audio>')
-  $audio.attr('src', "https://translate.google.com/translate_tts?tl=en&q=#{text}")
+  $audio.attr('src', "/sentences/#{id}/speak")
   $audio.attr('autoplay', 'autoplay')
 
 $ ->
@@ -17,6 +17,7 @@ $ ->
       select: (e) ->
         vm = e.targetVM
         return if vm.$data.icon in vm.$root.selectedIcons
+        return if vm.$root.selectedIcons.length >= 4
         vm.$root.selectedIcons.push vm.$data.icon
         iconIds = (icon.id for icon in vm.$root.selectedIcons)
         resetSearchResult(iconIds)

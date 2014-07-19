@@ -6,5 +6,8 @@ Rails.application.routes.draw do
     collection do
       post :search
     end
+    member do
+      get :speak
+    end
   end
 end
