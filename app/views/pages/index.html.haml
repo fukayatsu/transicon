@@ -1,3 +1,6 @@
+%script#ticon-template{type: "text/x-template"}
+  .icons.ticon{ data: { icon_id: '{{icon.id}}' } }
+    %img{ v: { attr: 'src: icon.url' } }
 
 .l-header
   .logo
@@ -6,35 +9,10 @@
 
 #search-result.l-sentence
 
-.l-menu
-  .l-selected.ticon-input
-    .icons
-      %a{:href => ""}
-    .icons
-      %a{:href => ""}
-    .icons
-      %a{:href => ""}
-    .icons
-      %a{:href => ""}
-    .icons
-      %a{:href => ""}
+.l-menu#vue
+  .l-icons.l-selected.ticon-input
+    .icons{ v: {component: "ticon", repeat: "icon: selectedIcons", on: "click: delete" } }
 
   .l-icons
-    - Icon.all.each do |icon|
-      .icons.ticon{ data: { icon_id: icon.id } }
-        = image_tag(icon.image.thumb.url, size: '100x100')
-        / = icon.word
-
-
-/ = link_to 'icon追加', icons_path
-/ |
-/ = link_to 'sentece追加', sentences_path
-/ %br
-/ .icons
-/   - Icon.all.each do |icon|
-/     %span.ticon{ data: { icon_id: icon.id } }
-/       = image_tag(icon.image.thumb.url, size: '100x100')
-/       = icon.word
-
-
+    .icons{ v: {component: "ticon", repeat: "icon: icons", on: "click: select" } }
 
