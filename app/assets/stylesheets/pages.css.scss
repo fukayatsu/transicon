@@ -9,3 +9,993 @@
   display: inline-block;
   margin: 0px;
 }
+
+/* =============================================================
+  共通変数設定
+ * ============================================================= */
+// PREFIX
+$set_prefix: -webkit-, -moz-, -ms-, -o-, '';
+
+// SPACE
+$space: 10px;
+
+// COLOR
+$color-white: #ffffff;
+$color-white-fade: #f7f7f7;
+$color-black: #222222;
+$color-grey: #cccccc;
+$color-primary: #3f51b5;
+$color-accent: #e91363;
+//
+$color-base: $color-white;
+$color-base-hover: $color-white-fade;
+$color-border: $color-grey;
+$color-text: $color-black;
+$color-disable: $color-grey;
+
+// BORDER
+$border-width: 1px;
+$border-base: $border-width $color-border solid;
+
+// RADIUS
+$radius: 3px;
+
+// FONT SIZE
+$font-size-base: 14px;
+$font-size-body: $font-size-base;
+$font-size-subhead: $font-size-base + 2;
+$font-size-caption: $font-size-base - 2;
+$font-size-button: $font-size-base;
+$font-size-subbutton: $font-size-base - 1;
+
+// SIZE
+$button-height-default: 40px;
+$button-height-tall: 50px;
+$button-height-low: 30px;
+$button-height-mini: 20px;
+$button-width-default: 80px;
+$button-width-wide: 140px;
+
+//
+$icon-size-default: 20px;
+$icon-size-tall: 30px;
+
+
+//SHADOW
+$shadow: 0px 1px 1px 0px rgba(0,0,0,0.1);
+
+
+
+
+
+/* =============================================================
+  MIXIN関連
+ * ============================================================= */
+
+//--------------------------------------------------
+// Radius
+//--------------------------------------------------
+
+@mixin border_radius_top($br_value) {
+  @each $prefix in $set_prefix {
+      #{$prefix}border-top-left-radius: $br_value;
+      #{$prefix}border-top-right-radius: $br_value;
+  }
+}
+
+@mixin border_radius_bottom($br_value) {
+  @each $prefix in $set_prefix {
+      #{$prefix}border-bottom-left-radius: $br_value;
+      #{$prefix}border-bottom-right-radius: $br_value;
+  }
+}
+
+//--------------------------------------------------
+// POSITION
+//--------------------------------------------------
+@mixin position-set-middle-center($w,$h) {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -$h/2;
+    margin-left: -$w/2;
+}
+
+@mixin font-size($size) {
+  @if $size == xxxxl{
+    font-size: 30px;
+  }
+  @if $size == xxxl{
+    font-size: 24px;
+  }
+  @if $size == xxl{
+    font-size: 20px;
+  }
+  @else if $size == xl{
+    font-size: 17px;
+  }
+  @else if $size == l{
+    font-size: 15px;
+  }
+  @else if $size == m{
+    font-size: 13px;
+  }
+  @else if $size == s{
+    font-size: 12px;
+  }
+  @else if $size == xs{
+    font-size: 11px;
+  }
+  @else if $size == xxs{
+    font-size: 10px;
+  }
+}
+
+@mixin inner($sp-top,$sp-right,$sp-bottom,$sp-left) {
+  padding-top: $sp-top + px;
+  padding-right: $sp-right + px;
+  padding-bottom: $sp-bottom + px;
+  padding-left: $sp-left + px;
+}
+
+@mixin space($sp-top,$sp-right,$sp-bottom,$sp-left) {
+  margin-top: $sp-top + px;
+  margin-right: $sp-right + px;
+  margin-bottom: $sp-bottom + px;
+  margin-left: $sp-left + px;
+}
+
+@mixin box-sizing{
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+
+//--------------------------------------------------
+// MEDIA QUERIES
+//--------------------------------------------------
+@mixin mq-retina {
+  @media only screen and (-webkit-min-device-pixel-ratio: 2) {
+    @content;
+  }
+}
+
+// ## Variables
+$mq-all    : null !default;
+$mq-sp     : null !default;
+$mq-tablet : null !default;
+$mq-default: null !default;
+$mq-large  : null !default;
+
+$default-mq-sp-max-width     : 480px !default;
+$default-mq-tablet-min-width : $default-mq-sp-max-width + 1 !default;
+$default-mq-tablet-max-width : 767px !default;
+// $default-mq-tablet-max-width : 800px !default;
+$default-mq-default-min-width: $default-mq-tablet-max-width + 1 !default;
+$default-mq-large-min-width  : 1025px !default;
+$default-mq-default-max-width: null !default;
+// $default-mq-default-max-width: $default-mq-large-min-width - 1 !default;
+
+// ## Wrapper
+@mixin mq {
+    @include mq-all     { @content; }
+    // @include mq-large   { @content; }
+    @include mq-default { @content; }
+    @include mq-tablet  { @content; }
+    @include mq-sp      { @content; }
+}
+
+// ## For All
+@mixin mq-all {
+    $_tmp: $mq-all;
+    $mq-all: true;
+    @content;
+    $mq-all: $_tmp;
+}
+
+// ## For Smartphones
+@mixin mq-sp(
+    $max: $default-mq-sp-max-width
+) {
+    $_tmp: $mq-sp;
+    $mq-sp: true;
+    @media only screen and (max-width:#{$max}) {
+        @content;
+    }
+    $mq-sp: $_tmp;
+}
+
+// ## For Tablets
+@mixin mq-tablet(
+    $min: $default-mq-tablet-min-width,
+    $max: $default-mq-tablet-max-width
+) {
+    $_tmp: $mq-tablet;
+    $mq-tablet: true;
+    @media only screen and (min-width:#{$min}) and (max-width:#{$max}) {
+        @content;
+    }
+    $mq-tablet: $_tmp;
+}
+
+// ## For PC (default)
+@mixin mq-default(
+    $min: $default-mq-default-min-width,
+    $max: $default-mq-default-max-width
+) {
+    $_tmp: $mq-default;
+    $mq-default: true;
+    $_breakpoint: "(min-width:#{$min}) ";
+    @if not($max == null) {
+        $_breakpoint: $_breakpoint + "and (max-width:#{$max}) ";
+    }
+    @media only screen and #{$_breakpoint}{
+        @content;
+    }
+    $mq-default: $_tmp;
+}
+
+// ## For Large Window
+@mixin mq-large(
+    $min: $default-mq-large-min-width
+) {
+    $_tmp: $mq-large;
+    $mq-large: true;
+    @media only screen and (min-width:#{$min}) {
+        @content;
+    }
+    $mq-large: $_tmp;
+}
+
+
+//--------------------------------------------------
+// BUTTON
+//--------------------------------------------------
+@mixin button-maker($size,$status: 'low',$bg: false) {
+  @include border_radius($radius);
+  @include box-sizing;
+  //
+  display: block;
+  text-align: center;
+  cursor: pointer;
+  //
+  font-size: 13px;
+  //
+  @if $size == 'xs' {
+    font-size: 11px;
+    $w: 68px;
+    $h: 25px;
+    width: $w;
+    height: $h;
+    line-height: $h;
+  } @else if $size == 's' {
+    font-size: 12px;
+    $w: 80px;
+    $h: 26px;
+    width: $w;
+    height: $h;
+    line-height: $h - 1px;
+  } @else if $size == 'm' {
+    $w: 140px;
+    $h: 34px;
+    width: $w;
+    height: $h;
+    line-height: $h - 4px;
+  } @else if $size == 'l' {
+    $w: 180px;
+    $h: 34px;
+    width: $w;
+    height: $h;
+    line-height: $h - 2px;
+  } @else if $size == 'xl' {
+    $w: 220px;
+    $h: 38px;
+    width: $w;
+    height: $h;
+    line-height: $h - 2px;
+  } @else if $size == 'xxl' {
+
+  }
+  //
+  @if $status == 'low' {
+    border: 1px solid $c-bd-button;
+    color: $c-black;
+    background-color: #fff;
+    &:hover{
+      border: 1px solid $c-green;
+    }
+    &.button-after{
+      border: 1px solid $c-green;
+      color: $c-green;
+    }
+  } @else if $status == 'high' {
+    border: 1px solid $c-green;
+    background-color: $c-green;
+    color: #fff;
+    &.button-after{
+      border: 1px solid $c-grey;
+      background-color: $c-grey;
+      color: #fff;
+    }
+  }
+  //
+}
+
+@mixin button-maker-on-img($size,$status: 'low',$bg: false) {
+  @include border_radius($radius);
+  @include box-sizing;
+  //
+  display: block;
+  text-align: center;
+  cursor: pointer;
+  //
+  font-size: 13px;
+  //
+  @if $size == 'xs' {
+  } @else if $size == 's' {
+    font-size: 12px;
+    $w: 80px;
+    $h: 30px;
+    width: $w;
+    height: $h;
+    line-height: $h - 3px;
+    //SP----------
+    @include mq-sp {line-height: $h - 5px;}
+  } @else if $size == 'm' {
+    $w: 140px;
+    $h: 34px;
+    width: $w;
+    height: $h;
+    line-height: $h - 4px;
+    //SP----------
+    @include mq-sp {line-height: $h - 6px;}
+  } @else if $size == 'l' {
+    $w: 180px;
+    $h: 40px;
+    width: $w;
+    height: $h;
+    line-height: $h - 4px;
+    //SP----------
+    @include mq-sp {line-height: $h - 6px;}
+  } @else if $size == 'xl' {
+    $w: 220px;
+    $h: 38px;
+    width: $w;
+    height: $h;
+    line-height: $h - 2px;
+  } @else if $size == 'xxl' {
+  }
+  //
+  @if $status == 'low' {
+    border: 2px solid #fff;
+    color: #fff;
+    background-color: rgba(0,0,0,0.5);
+    &.button-after,&.btn-after{
+      border: 2px solid $c-green;
+      color: $c-green;
+      background-color: #fff;
+    }
+  } @else if $status == 'high' {
+    border: 2px solid $c-green;
+    background-color: $c-green;
+    color: #fff;
+    &.button-after,&.btn-after{
+      border: 2px solid $c-grey;
+      background-color: $c-grey;
+    }
+  }
+  //
+}
+
+
+/* =============================================================
+  リセット
+ * ============================================================= */
+
+html {
+  // overflow-y: scroll;
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-size: 1em;
+}
+
+p, blockquote, dl, dt, dd, ul, ol, li, form {
+  font-size: 10px;
+}
+
+p, blockquote, dl, dd, figure {
+  margin: 0;
+}
+
+hr {
+  -moz-box-sizing: content-box;
+       box-sizing: content-box;
+  height: auto;
+  color: inherit;
+}
+
+pre {
+  margin: 0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-family: monospace, sans-serif;
+}
+
+ol, ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+a:focus {
+  outline: thin dotted;
+}
+
+a:hover, a:active {
+  outline: 0;
+}
+
+br {
+  *letter-spacing: 0;
+}
+
+img {
+  border: 0;
+  vertical-align: top;
+  -ms-interpolation-mode: bicubic;
+}
+
+table {
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+caption {
+  padding: 0;
+  text-align: left;
+}
+
+th, td {
+  padding: 0;
+  vertical-align: baseline;
+  text-align: left;
+}
+
+form {
+  margin: 0;
+}
+
+fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+legend {
+  border: 0;
+  *margin-left: -7px;
+}
+
+input, button, select, textarea {
+  margin: 0;
+  color: inherit;
+  font-size: 1em;
+  font-family: inherit;
+}
+
+input, button {
+  vertical-align: inherit;
+  line-height: normal;
+  *vertical-align: middle;
+}
+
+input::-moz-focus-inner,
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+input[type="search"] {
+  -webkit-box-sizing: content-box;
+     -moz-box-sizing: content-box;
+          box-sizing: content-box;
+  -webkit-appearance: textfield;
+}
+
+input[type="search"]:focus {
+  outline-offset: -2px;
+}
+
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+input[type="submit"],
+input[type="reset"],
+input[type="button"],
+button {
+  cursor: pointer;
+  -webkit-appearance: button;
+  *overflow: visible;
+}
+
+textarea {
+  overflow: auto;
+  vertical-align: top;
+  *font-family: sans-serif;
+}
+
+/* =============================================================
+  MIXINS
+ * ============================================================= */
+@mixin border_radius($br_value) {
+  @each $prefix in $set_prefix {
+      #{$prefix}border-radius: $br_value;
+  }
+}
+
+@mixin space-right($n){
+  margin-right: $space * $n;
+}
+
+
+/* =============================================================
+  EXTEND
+ * ============================================================= */
+%margin_center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+%inline_block_parent{
+  letter-spacing: -.40em;
+}
+%inline_block_child{
+  letter-spacing: normal;
+  display: inline-block !important;
+  vertical-align: middle;
+  line-height: 1;
+}
+
+%clearfix{
+  zoom:1;
+  &:after{
+    display: block;
+    content: "";
+    clear: both;
+  }
+}
+
+%inner{
+  padding: $space;
+}
+
+%box-shadow{
+  $set: $shadow;
+  -webkit-box-shadow: $set;
+  -moz-box-shadow: $set;
+  box-shadow: $set;
+}
+
+%card{
+  @extend %box-shadow;
+  background-color: $color-base;
+}
+
+/* =============================================================
+  基本設定
+ * ============================================================= */
+*{
+  @include box-sizing;
+}
+
+body{
+  background-color: #f7f7f7 !important;
+  margin: 10px 0;
+}
+
+a{
+  text-decoration: none;
+  color: $color-text
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: $font-size-subhead;
+}
+
+p, blockquote, dl, dt, dd, ul, ol, li, form {
+  font-size: $font-size-body;
+}
+
+.container{
+  width: 95%;
+  @extend %margin_center;
+}
+
+/* =============================================================
+  BASIC
+ * ============================================================= */
+.block{
+  display: block;
+}
+.font-normal{
+  font-weight: normal;
+}
+.font-bold{
+  font-weight: normal;
+}
+.text-left{
+  text-align: left;
+}
+.text-right{
+  text-align: right;
+}
+.left{
+  float: left;
+}
+.right{
+  float: right;
+}
+.no-float{
+  float: none;
+}
+.center{
+  margin-left: auto;
+  margin-right: auto;
+}
+.no-margin{
+  margin: 0;
+}
+.no-padding{
+  padding: 0;
+}
+.no-space{
+  @extend .no-margin;
+  @extend .no-padding;
+}
+
+
+/* =============================================================
+  ボタン
+ * ============================================================= */
+// BASE
+%button_init{
+  display :block;
+  cursor: pointer;
+  line-height: 1;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  position: relative;
+}
+// HEIGHT
+%button_height_default{
+  height: $button-height-default;
+  padding-top: 0.9em;
+  font-size: $font-size-button;
+}
+%button_height_mini{
+  height: $button-height-mini;
+}
+%button_height_low{
+  height: $button-height-low;
+  padding-top: 0.7em;
+  font-size: $font-size-subbutton;
+}
+%button_height_tall{
+  height: $button-height-tall;
+  padding-top: 1.3em;
+  font-size: $font-size-button;
+}
+// WIDTH
+%button_width_default{
+  min-width: $button-width-default;
+}
+%button_width_wide{
+  min-width: $button-width-wide;
+}
+%button_width_full{
+  min-width: 100%;
+}
+%button_width_flex{
+  min-width: 0;
+  width: auto;
+  padding-left: $space;
+  padding-right: $space;
+}
+// STYLE
+@mixin button_setter($bg,$line,$txt){
+  background-color: $bg;
+  border-color: $line;
+  color: $txt;
+}
+%button_style_default{
+  border-width:  $border-width;
+  border-style: solid;
+  @include button_setter($color-base, $color-border, $color-text);
+  @include box-sizing;
+  &:hover{
+    background-color: $color-base-hover;
+  }
+}
+%button_style_plain{
+  background: none;
+  border: none;
+  @extend %button_width_flex;
+  &:hover{
+    text-decoration: underline;
+  }
+}
+%button_style_primary{
+  @include button_setter($color-primary, $color-primary, $color-base)
+}
+%button_style_disable{
+  @include button_setter($color-disable, $color-disable, $color-base)
+}
+// CSS
+.button{
+  @include border_radius($radius);
+  @extend %button_init;
+  @extend %button_style_default;
+  @extend %button_height_default;
+  @extend %button_width_default;
+  // HEIGHT
+  &.h-mini{
+    @extend %button_height_mini;
+  }
+  &.h-low{
+    @extend %button_height_low;
+  }
+  &.h-tall{
+    @extend %button_height_tall;
+  }
+  // WIDTH
+  &.w-full{
+    @extend %button_width_full;
+  }
+  &.w-wide{
+    @extend %button_width_wide;
+  }
+  // STYLE
+  &.s-plain{
+    @extend %button_style_plain;
+  }
+  &.s-primary{
+    @extend %button_style_primary;
+  }
+  &.s-disable{
+    @extend %button_style_disable;
+  }
+  // ICON
+  .icon{
+    position: absolute;
+    top: 50%;
+    left: $space / 2;
+    margin-top: - $icon-size-default / 2;
+  }
+}
+// MODULE
+.mod-button-footer{
+  @extend %clearfix;
+  width: 100%;
+  .area-prev{
+    float: left;
+  }
+  .area-next{
+    float: right;
+  }
+}
+// GROUP
+.button-group{
+  @extend %inline_block_parent;
+  .button,.button-icon{
+    @extend %inline_block_child;
+    margin-right: $space;
+  }
+  .button:last-child,.button-icon:last-child{
+    margin-right: 0;
+  }
+}
+
+
+/* =============================================================
+  アイコン
+ * ============================================================= */
+@mixin icon_setter($size){
+  display: block;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: $size;
+  height: $size;
+  background-size: $size $size !important;
+}
+// CSS
+.icon{
+  $size: $icon-size-default;
+  @include icon_setter($size);
+  &.icon-dummy{
+    background-image: url(../images/icon_dummy.png);
+  }
+  &.h-tall{
+    $size: $icon-size-tall;
+    @include icon_setter($size);
+    &.icon-dummy{
+      background-image: url(../images/icon_dummy_tall.png);
+    }
+  }
+}
+// ICON WITH  TEXT
+.txt-w-icon{
+  @extend %inline_block_parent;
+  .icon,.txt{
+    @extend %inline_block_child;
+  }
+  .icon{
+    margin-right: $space / 2;
+  }
+}
+
+/* =============================================================
+  カード
+ * ============================================================= */
+.card{
+  @extend %card;
+  &.inner{
+    @extend %inner;
+  }
+}
+
+/* =============================================================
+  ナビ
+ * ============================================================= */
+.navi{
+  &.list{
+    @extend %card;
+    .link{
+      display: block;
+      height: $button-height-default;
+      padding-top: 0.7em;
+      font-size: $font-size-button;
+      padding-left: $space;
+      padding-right: $space;
+      border-bottom: $border-base;
+    }
+    .link:last-child{
+      border-bottom: none;
+    }
+    &.s-plain{
+      .link{
+        border-bottom: none;
+      }
+    }
+  }
+}
+
+/* =============================================================
+  テキスト
+ * ============================================================= */
+.txt-subhead{
+  font-size:  $font-size-subhead;
+  margin-bottom: 0.3em;
+}
+
+
+/* =============================================================
+
+ * ============================================================= */
+.l-header{
+  height: 44px;
+  background-color: #fff;
+  @extend %box-shadow;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  .logo{
+    text-align: center;
+    margin:0;
+    padding:0;
+    font-size: 24px;
+    line-height: 44px;
+    font-weight: bold;
+    font-family: helvetica;
+  }
+}
+
+.l-sentence{
+  padding: 60px 10px 200px 10px;
+    // height: 260px;
+    // overflow: scroll;
+  .sentences{
+    @extend %card;
+    padding: 10px;
+    margin-bottom: 10px;
+    @include border_radius($radius);
+    position: relative;
+    .btn-listen{
+      @include border_radius(50%);
+      width: 30px;
+      height: 30px;
+      background-color: #222;
+      position: absolute;
+      top:10px;
+      right: 10px;
+    }
+    .txt--en{
+      margin:0;
+      padding:0;
+      font-size: 24px;
+      font-weight: bold;
+      font-family: helvetica;
+    }
+    .txt--jp{
+      margin:0;
+      padding:0;
+      font-size: 13px;
+      color: #c7c7c7;
+    }
+  }
+}
+
+.l-menu{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 200px;
+  width: 100%;
+  background-color: #fff;
+  @extend %box-shadow;
+}
+
+.l-selected{
+  @extend %clearfix;
+  background: #E2E2E2;
+  padding: 10px 10px;
+  .icons{
+    @include border_radius($radius);
+    float:left;
+    width: 50px;
+    height: 50px;
+    margin: 0 5px;
+    background-color: #fff;
+  }
+}
+
+
+.l-icons{
+  @extend %clearfix;
+  padding: 5px 10px;
+  .icons{
+    float:left;
+    width: 40px;
+    height: 40px;
+    margin: 5px;
+    @include border_radius($radius);
+    img{
+      width: 100%;
+      height: 100%;
+       @include border_radius($radius);
+    }
+  }
+}
+

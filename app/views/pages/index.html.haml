@@ -1,15 +1,60 @@
-= link_to 'icon追加', icons_path
-|
-= link_to 'sentece追加', sentences_path
-%br
-.icons
-  - Icon.all.each do |icon|
-    %span.ticon{ data: { icon_id: icon.id } }
-      = image_tag(icon.image.thumb.url, size: '100x100')
-      = icon.word
-%br
-%br
-.ticon-input
 
-#search-result
+.l-header
+  .logo
+    Pictalk
+  %p.btn-navi
+
+
+
+
+.l-sentence
+  .sentences.card
+    .btn-listen
+    %p.txt--en
+      Walk in the park.
+    %p.txt--jp
+      公園を歩く
+  .sentences.card
+    .btn-listen
+    %p.txt--en
+      Piece of cake
+    %p.txt--jp
+      楽勝
+
+
+
+.l-menu
+  .l-selected
+    .icons
+      %a{:href => ""}
+    .icons
+      %a{:href => ""}
+    .icons
+      %a{:href => ""}
+    .icons
+      %a{:href => ""}
+    .icons
+      %a{:href => ""}
+
+  .l-icons
+    - Icon.all.each do |icon|
+      .icons.ticon{ data: { icon_id: icon.id } }
+        = image_tag(icon.image.thumb.url, size: '100x100')
+        / = icon.word
+
+
+/ = link_to 'icon追加', icons_path
+/ |
+/ = link_to 'sentece追加', sentences_path
+/ %br
+/ .icons
+/   - Icon.all.each do |icon|
+/     %span.ticon{ data: { icon_id: icon.id } }
+/       = image_tag(icon.image.thumb.url, size: '100x100')
+/       = icon.word
+/ %br
+/ %br
+/ .ticon-input
+
+/ #search-result
 
