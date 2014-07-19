@@ -5,7 +5,7 @@ resetSearchResult = (iconIds) ->
     html = '<ul>'
     for sentence in sentences
       html += '<li>' + sentence.body_en + " / " + sentence.body_ja
-      html += '<audio src="http://translate.google.com/translate_tts?tl=en&q=' + sentence.body_en.split(' ').join('+') + '" controls></audio>'
+      html += '<audio src="https://translate.google.com/translate_tts?tl=en&q=' + sentence.body_en.split(' ').join('+') + '" controls></audio>'
     html += '</ul>'
     $('#search-result').html(html)
 
